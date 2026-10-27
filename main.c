@@ -1,1 +1,1 @@
-#include "src/mod.c"
+#include "src/main.c"

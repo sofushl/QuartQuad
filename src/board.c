@@ -1,13 +1,14 @@
+#include "runinfo.c"
 #include <stdio.h>
 
 #define HEIGHT 20
 #define WIDHT 10
 
-void setBoard(char board[HEIGHT][WIDHT], int pos[2]) {
+void setBoard(char board[HEIGHT][WIDHT], struct runInfo ri) {
   for (int i = 0; i < HEIGHT; i++) {
     for (int j = 0; j < WIDHT; j++) {
       // printf("%d, %d, %d, %d\n", i, pos[0], j, pos[1]);
-      if (pos[0] == i && pos[1] == j) {
+      if (*(ri.y) == i && *(ri.x) == j) {
         board[i][j] = 'O';
       } else {
         board[i][j] = ' ';
@@ -35,4 +36,10 @@ void showBoard(char board[HEIGHT][WIDHT]) {
     };
     printline();
   };
+}
+
+void runBoard(char board[HEIGHT][WIDHT], struct runInfo ri) {
+
+  setBoard(board, ri);
+  showBoard(board);
 }

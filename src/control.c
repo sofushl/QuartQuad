@@ -1,23 +1,27 @@
+#include "runinfo.c"
 #include "termios_getch.c"
 
-char press(int pos[2]) {
-  char c = getch();
+struct runInfo press(struct runInfo ri) {
 
-  switch (c) {
+  char k = getch();
+
+  switch (k) {
   case 65: // key up
-    pos[0]--;
+    (*ri.y)--;
     break;
   case 66: // key down
-    pos[0]++;
+    (*ri.y)++;
     break;
   case 67: // key right
-    pos[1]++;
+    (*ri.x)++;
     break;
   case 68: // key left
-    pos[1]--;
+    (*ri.x)--;
     break;
   default:
     break;
   }
-  return c;
+  *ri.c = k;
+
+  return ri;
 }
