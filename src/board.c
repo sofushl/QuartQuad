@@ -1,5 +1,6 @@
 #include "runinfo.c"
 #include <stdio.h>
+#include <stdlib.h>
 
 #define HEIGHT 20
 #define WIDHT 10
@@ -15,31 +16,41 @@ void setBoard(char board[HEIGHT][WIDHT], struct runInfo ri) {
       };
     };
   };
-};
+}
 
-void printline() {
-  printf("\n");
-  printf("—");
+void addChar(char added, char **p) {
+  **p = added;
+  (*p)++;
+}
+
+void printline(char **p) {
+  addChar('\n', p);
+  addChar('-', p);
   for (int j = 0; j < WIDHT * 2; j++) {
-    printf("—");
+    addChar('-', p);
   };
-  printf("\n");
-};
+  addChar('\n', p);
+}
 
 void showBoard(char board[HEIGHT][WIDHT]) {
-  printline();
+
+  char *s = malloc(sizeof(char) * (WIDHT * 2 + 2) * (HEIGHT * 2 + 1) + 1);
+  char *p = s;
+  printline(&p);
   for (int i = 0; i < HEIGHT; i++) {
-    printf("│");
+    addChar('|', &p);
     for (int j = 0; j < WIDHT; j++) {
-      printf("%c", board[i][j]);
-      printf("│");
+      addChar(board[i][j], &p);
+      addChar('|', &p);
     };
-    printline();
+    printline(&p);
   };
+  fflush(stdout);
+  printf("%s", s);
+  fflush(stdout);
 }
 
 void runBoard(char board[HEIGHT][WIDHT], struct runInfo ri) {
-
   setBoard(board, ri);
   showBoard(board);
 }
